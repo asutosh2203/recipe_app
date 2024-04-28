@@ -27,6 +27,7 @@ async function getMealDetails() {
 
   if (data && data.meals) {
     const meal = data.meals[0];
+    
     pageTitle.innerHTML = meal.strMeal;
     imgContainer.style.backgroundImage = `url(${meal.strMealThumb})`;
 
@@ -49,12 +50,13 @@ async function getMealDetails() {
       ingredientName = "strIngredient" + i.toString();
       ingredientQty = "strMeasure" + i.toString();
 
-      if (meal[ingredientName] != "") {
-        ingredientString += meal[ingredientName];
-        if (meal[ingredientQty].trim())
-          ingredientString += ` (${meal[ingredientQty].trim()})`;
-        ingredientString += ", ";
-      }
+      if (meal[ingredientName] && meal[ingredientQty])
+        if (meal[ingredientName] != "") {
+          ingredientString += meal[ingredientName];
+          if (meal[ingredientQty].trim())
+            ingredientString += ` (${meal[ingredientQty].trim()})`;
+          ingredientString += ", ";
+        }
     }
 
     // remove the trailing space and comma
@@ -66,10 +68,14 @@ async function getMealDetails() {
 
     // regexp used from cleaup of recipe strings
     const startsWithNumberAndDot = /^[0-9]+\./;
+    const startsWithNumberAndBrace = /^[0-9]+\)/;
     const pattern = /^step \d+$/i;
 
     meal.strInstructions.split("\r\n").forEach((instruction) => {
-      if (startsWithNumberAndDot.test(instruction)) {
+      if (
+        startsWithNumberAndDot.test(instruction) ||
+        startsWithNumberAndBrace.test(instruction)
+      ) {
         instruction = instruction.slice(3, instruction.length);
       }
       if (pattern.test(instruction.trim())) {
@@ -88,6 +94,21 @@ async function getMealDetails() {
     ytLinkDiv.addEventListener("click", () => {
       window.location.href = meal.strYoutube ? meal.strYoutube : "";
     });
+  } else {
+    // error handling in case meal details is not found
+    ytLinkDiv.style.display = "none";
+    const notFound = document.createElement("h1");
+    notFound.innerHTML = "Sorry, we could not find any details on that meal.";
+
+    const redirecting = document.createElement("h3");
+    redirecting.innerHTML = "Redirecting to home...";
+
+    mealHeadingDiv.appendChild(notFound);
+    mealHeadingDiv.appendChild(redirecting);
+
+    setTimeout(() => {
+      window.location.href = HOME_URL + "/";
+    }, 4000);
   }
 }
 
