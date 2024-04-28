@@ -1,9 +1,10 @@
+import { HOME_URL } from "./utils.js";
 const urlParams = new URLSearchParams(window.location.search);
 const mealId = urlParams.get("id");
 
 async function getMealDetails() {
   if (!mealId) {
-    window.location.href = "/index.html";
+    window.location.href = HOME_URL + "/index.html";
     return;
   }
 
@@ -91,7 +92,7 @@ async function getMealDetails() {
 }
 
 document.getElementById("home-btn").addEventListener("click", () => {
-  window.location.href = "/";
+  window.location.href = "./";
 });
 
 // initial render

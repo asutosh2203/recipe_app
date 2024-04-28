@@ -1,3 +1,5 @@
+import { HOME_URL } from "./utils.js";
+
 let fav = fetchFavMeals();
 
 function fetchFavMeals() {
@@ -52,9 +54,10 @@ function populateFavMeals() {
         mealReceipe.appendChild(viewMore);
 
         viewMore.addEventListener("click", () => {
-          window.location.href = "/meal-details.html?id=" + meal.idMeal;
+          window.location.href =
+            HOME_URL + "/meal-details.html?id=" + meal.idMeal;
         });
-        
+
         const removeFromFavBtn = document.createElement("button");
         removeFromFavBtn.classList.add("remove-meal");
         removeFromFavBtn.textContent = "Remove";
@@ -81,7 +84,7 @@ function populateFavMeals() {
 }
 
 document.getElementById("home-btn").addEventListener("click", () => {
-  window.location.href = "/";
+  window.location.href = HOME_URL + "/";
 });
 
 function removeMealFromFav(mealId) {

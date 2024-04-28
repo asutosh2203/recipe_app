@@ -1,3 +1,5 @@
+import { HOME_URL } from "./utils.js";
+
 async function mealsSearch(food) {
   const response = await fetch(
     "https://www.themealdb.com/api/json/v1/1/search.php?s=" + food
@@ -58,7 +60,8 @@ async function mealsSearch(food) {
       mealReceipe.appendChild(viewMore);
 
       viewMore.addEventListener("click", () => {
-        window.location.href = "./pages/meal-details.html?id=" + meal.idMeal;
+        window.location.href =
+          HOME_URL + "/pages/meal-details.html?id=" + meal.idMeal;
       });
 
       mealDetails.appendChild(mealTitle);
@@ -124,7 +127,7 @@ function addToFavourites(mealId) {
 }
 
 document.getElementById("favs-btn").addEventListener("click", () => {
-  window.location.href = "/pages/favorites.html";
+  window.location.href = HOME_URL + "/pages/favorites.html";
 });
 
 // initial render
