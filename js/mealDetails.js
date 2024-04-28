@@ -92,7 +92,7 @@ async function getMealDetails() {
 }
 
 document.getElementById("home-btn").addEventListener("click", () => {
-  window.location.href = "./";
+  window.location.href = HOME_URL + "/";
 });
 
 // initial render
