@@ -58,7 +58,7 @@ async function mealsSearch(food) {
       mealReceipe.appendChild(viewMore);
 
       viewMore.addEventListener("click", () => {
-        window.location.href = "/pages/meal-details.html?id=" + meal.idMeal;
+        window.location.href = "./pages/meal-details.html?id=" + meal.idMeal;
       });
 
       mealDetails.appendChild(mealTitle);
