@@ -55,7 +55,7 @@ function populateFavMeals() {
 
         viewMore.addEventListener("click", () => {
           window.location.href =
-            HOME_URL + "/meal-details.html?id=" + meal.idMeal;
+            HOME_URL + "/pages/meal-details.html?id=" + meal.idMeal;
         });
 
         const removeFromFavBtn = document.createElement("button");
