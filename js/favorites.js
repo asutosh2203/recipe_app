@@ -13,8 +13,6 @@ function fetchFavMeals() {
   return favMeals;
 }
 
-const favDiv = document.getElementById("favorites");
-
 const mealsDiv = document.getElementsByClassName("meals")[0];
 
 function populateFavMeals() {

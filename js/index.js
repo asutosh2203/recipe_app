@@ -1,5 +1,18 @@
 import { HOME_URL } from "./utils.js";
 
+// debouncer to make delayed API calls
+function debouncer(func, delay) {
+  let timer;
+  return function (term) {
+    let context = this,
+      args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(context, args);
+    }, delay);
+  };
+}
+
 async function mealsSearch(food) {
   const response = await fetch(
     "https://www.themealdb.com/api/json/v1/1/search.php?s=" + food
@@ -9,7 +22,9 @@ async function mealsSearch(food) {
 
   let favMeals = fetchFavMeals();
 
+  // get the HTML element to render meals in
   const mealsDiv = document.getElementsByClassName("meals")[0];
+
   mealsDiv.innerHTML = "";
   if (data && data.meals) {
     data.meals.forEach((meal) => {
@@ -34,6 +49,7 @@ async function mealsSearch(food) {
         likeButton.classList.add("fa-regular");
       }
 
+      // like button functionality
       likeButton.addEventListener("click", () => {
         addToFavourites(meal.idMeal);
         favMeals = fetchFavMeals();
@@ -78,19 +94,6 @@ async function mealsSearch(food) {
     noMeals.innerHTML = "No meals found";
     mealsDiv.appendChild(noMeals);
   }
-}
-
-// debouncer to make delayed API calls
-function debouncer(func, delay) {
-  let timer;
-  return function (term) {
-    let context = this,
-      args = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(context, args);
-    }, delay);
-  };
 }
 
 // calling mealsSearch func with 500ms delay
