@@ -27,7 +27,7 @@ async function getMealDetails() {
 
   if (data && data.meals) {
     const meal = data.meals[0];
-    
+
     pageTitle.innerHTML = meal.strMeal;
     imgContainer.style.backgroundImage = `url(${meal.strMealThumb})`;
 
@@ -90,6 +90,8 @@ async function getMealDetails() {
     });
 
     mealRecipeDiv.appendChild(recipe);
+
+    ytLinkDiv.innerHTML = "Watch on Youtube here";
 
     ytLinkDiv.addEventListener("click", () => {
       window.location.href = meal.strYoutube ? meal.strYoutube : "";
